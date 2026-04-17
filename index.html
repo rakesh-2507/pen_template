@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template_Copy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .intro {
+            background: url(/assets/intro-bg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro_content {
+            margin: 2rem;
+            width: 95vw;
+            border: 15px solid #e9e5e5;
+            padding: 1rem;
+        }
+
+        .intro_header {
+            opacity: 0;
+            transform: translateY(0px);
+            transition: all 1s ease;
+            font-size: 28px;
+            font-family: Inter, sans-serif;
+
+            h3 {
+                font-size: 52px;
+                font-weight: 800;
+                color: rgb(206, 181, 141);
+                text-transform: uppercase;
+                text-decoration: none;
+                letter-spacing: 0px;
+                line-height: 52px;
+                text-align: center;
+                white-space: normal;
+                margin: 0px;
+            }
+
+            p {
+                margin: 0px;
+                text-align: center;
+                white-space: normal;
+                font-size: 25px;
+                color: #b6b6b6;
+            }
+        }
+
+        .intro_header.show {
+            opacity: 1;
+            transform: translateY(30px);
+        }
+
+        .intro_body {
+            opacity: 0;
+            transform: translateY(0px);
+            transition: all 1s ease;
+
+            h2 {
+                font-family: "Dancing Script", cursive;
+                font-optical-sizing: auto;
+                font-style: normal;
+                font-size: 52px;
+                font-weight: 800;
+                color: rgb(14, 14, 14);
+                text-decoration: none;
+                text-align: center;
+                white-space: normal;
+                margin: 0px;
+                max-width: 600px;
+            }
+        }
+
+        .intro_body.show {
+            opacity: 1;
+            transform: translateY(100px);
+            display: flex;
+            justify-content: center;
+        }
+
+        .intro_main {
+            position: absolute;
+            bottom: -35%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 60px;
+        }
+
+        .intro_main img {
+            transition: transform 0.5s ease;
+            cursor: pointer;
+            position: relative;
+
+        }
+
+        .intro_main img {
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .intro_main:hover img {
+            transform: translateY(30px);
+        }
+
+        .intro_main img:hover {
+            transform: translateY(-100px);
+        }
+
+        .img-box {
+            position: relative;
+        }
+
+        .img-box::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: 75%;
+            left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            background: #fdfdfd;
+            color: #181c12;
+            padding: 10px 15px;
+            font-size: 20px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0px 0px 12px #554c4c;
+        }
+
+        .img-box:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="intro">
+        <div class="intro_content">
+            <div class="intro_header">
+                <h3>Heading</h3>
+                <p>Welcome Message</p>
+            </div>
+            <div class="intro_body">
+                <h2>Replace the line below with your desired content</h2>
+            </div>
+
+            <div class="intro_main">
+                <a href="">
+                    <div class="img-box" data-name="Black Pen">
+                        <img src="/assets/black-pen.png" alt="">
+                    </div>
+                </a>
+                <a href="">
+                    <div class="img-box" data-name="Blue Pen">
+                        <img src="/assets/blue-pen.png" alt="">
+                    </div>
+                </a>
+                <a href="">
+                    <div class="img-box" data-name="Galaxy Pen">
+                        <img src="/assets/galaxy-pen.png" alt="">
+                    </div>
+                </a>
+                <a href="">
+                    <div class="img-box" data-name="Ivory Pen">
+                        <img src="/assets/ivory-pen.png" alt="">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener("load", () => {
+            document.querySelector(".intro_header").classList.add("show");
+            document.querySelector(".intro_body").classList.add("show");
+            document.querySelector(".intro_main").classList.add("show");
+
+        });
+    </script>
+</body>
+
+
+</html>
