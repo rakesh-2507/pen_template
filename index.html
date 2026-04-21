@@ -5,15 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template_Copy</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
         }
 
-        .intro {
+        .intro,
+        .panel {
             background: url(/assets/intro-bg.jpg);
             background-size: cover;
             background-position: center;
@@ -33,95 +37,48 @@
             padding: 1rem;
         }
 
-        .intro_header {
-            opacity: 0;
-            transform: translateY(0px);
-            transition: all 1s ease;
-            font-size: 28px;
+        .intro_header h3 {
+            font-size: 52px;
+            font-weight: 800;
+            color: rgb(206, 181, 141);
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
             font-family: Inter, sans-serif;
-
-            h3 {
-                font-size: 52px;
-                font-weight: 800;
-                color: rgb(206, 181, 141);
-                text-transform: uppercase;
-                text-decoration: none;
-                letter-spacing: 0px;
-                line-height: 52px;
-                text-align: center;
-                white-space: normal;
-                margin: 0px;
-            }
-
-            p {
-                margin: 0px;
-                text-align: center;
-                white-space: normal;
-                font-size: 25px;
-                color: #b6b6b6;
-            }
         }
 
-        .intro_header.show {
-            opacity: 1;
-            transform: translateY(30px);
+        .intro_header p {
+            margin: 0;
+            text-align: center;
+            font-size: 25px;
+            color: #b6b6b6;
         }
 
-        .intro_body {
-            opacity: 0;
-            transform: translateY(0px);
-            transition: all 1s ease;
-
-            h2 {
-                font-family: "Dancing Script", cursive;
-                font-optical-sizing: auto;
-                font-style: normal;
-                font-size: 52px;
-                font-weight: 800;
-                color: rgb(14, 14, 14);
-                text-decoration: none;
-                text-align: center;
-                white-space: normal;
-                margin: 0px;
-                max-width: 600px;
-            }
-        }
-
-        .intro_body.show {
-            opacity: 1;
-            transform: translateY(100px);
-            display: flex;
-            justify-content: center;
+        .intro_body h2 {
+            font-family: "Dancing Script", cursive;
+            font-size: 52px;
+            font-weight: 800;
+            color: rgb(14, 14, 14);
+            text-align: center;
+            margin: 0 auto;
+            max-width: 600px;
         }
 
         .intro_main {
             position: absolute;
             top: 60%;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .intro_main img {
-            transition: transform 0.5s ease;
-            cursor: pointer;
-            position: relative;
-
-        }
-
-        .intro_main img {
-            transition: transform 0.5s ease;
-            cursor: pointer;
             width: 100px;
-        }
-
-        .intro_main:hover img {
-            transform: translateY(30px);
+            cursor: pointer;
+            transition: transform 0.4s ease;
         }
 
         .intro_main img:hover {
-            transform: translateY(-100px);
+            transform: translateY(-12px) scale(1.08);
         }
 
         .img-box {
@@ -131,72 +88,493 @@
         .img-box::after {
             content: attr(data-name);
             position: absolute;
-            bottom: 75%;
+            bottom: 80%;
             left: 50%;
-            transform: translateX(-50%) translateY(50px);
-            background: #fdfdfd;
+            transform: translateX(-50%) translateY(20px);
+            background: #fff;
             color: #181c12;
-            padding: 10px 15px;
-            font-size: 20px;
+            padding: 8px 12px;
+            font-size: 16px;
             border-radius: 6px;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
-            box-shadow: 0px 0px 12px #554c4c;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
         .img-box:hover::after {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+
+        .fade-up,
+        .fade-down {
+            opacity: 0;
+            transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .fade-up {
+            transform: translateY(60px) scale(0.98);
+        }
+
+        .fade-down {
+            transform: translateY(-60px) scale(0.98);
+        }
+
+        .fade-up.active,
+        .fade-down.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .fade-up:nth-child(1),
+        .fade-down:nth-child(1) {
+            transition-delay: 0.2s;
+        }
+
+        .fade-up:nth-child(2),
+        .fade-down:nth-child(2) {
+            transition-delay: 0.5s;
+        }
+
+        .fade-up:nth-child(3),
+        .fade-down:nth-child(3) {
+            transition-delay: 0.8s;
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.5);
+            filter: blur(8px);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .zoom-in.active {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        .panel {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            z-index: 999;
+            transition: bottom 0.8s ease;
+        }
+
+
+        .panel.active {
+            bottom: 0;
+        }
+
+        .panel-header {
+            position: absolute;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .panel-content {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .overlay-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .float-box {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .image-overlay {
+            width: 100%;
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .plus-btn:hover~.float-box .image-overlay {
+            transform: rotate(20deg);
+        }
+
+        .plus-btn {
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            color: #000;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .vertical-slider {
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .slide-content {
+            position: absolute;
+            width: 50%;
+            bottom: 10%;
+            left: 5%;
+            font-family: "Dancing Script", cursive;
+            font-size: 25px;
+        }
+
+        .full-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .panel-view {
+            background: url(/assets/intro-bg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            z-index: 999;
+            transition: bottom 0.8s ease;
+        }
+
+        .panel-view.active {
+            bottom: 0;
+        }
     </style>
 </head>
 
 <body>
+
     <div class="intro">
-        <div class="intro_content">
-            <div class="intro_header">
+        <div class="d-flex flex-column align-items-center intro_content fade-up">
+
+            <div class="intro_header zoom-in">
                 <h3>Heading</h3>
                 <p>Welcome Message</p>
             </div>
-            <div class="intro_body">
+
+            <div class="intro_body zoom-in mt-5">
                 <h2>Replace the line below with your desired content</h2>
             </div>
 
-            <div class="intro_main">
-                <a href="">
-                    <div class="img-box" data-name="Consiler">
-                        <img src="/assets/black-pen.png" alt="">
+            <div class="intro_main zoom-in">
+                <a href="#" onclick="openPanel('section1')">
+                    <div class="img-box fade-up" data-name="Concealer">
+                        <img src="/assets/black-pen.png">
                     </div>
                 </a>
-                <a href="">
-                    <div class="img-box" data-name="lavender">
-                        <img src="/assets/blue-pen.png" alt="">
+
+                <a href="#" onclick="openPanel('section2')">
+                    <div class="img-box fade-up" data-name="Lavender">
+                        <img src="/assets/blue-pen.png">
                     </div>
                 </a>
-                <a href="">
-                    <div class="img-box" data-name="Galaxy">
-                        <img src="/assets/galaxy-pen.png" alt="">
+
+                <a href="#" onclick="openPanel('section3')">
+                    <div class="img-box fade-up" data-name="Galaxy">
+                        <img src="/assets/galaxy-pen.png">
                     </div>
                 </a>
-                <a href="">
-                    <div class="img-box" data-name="Ivory">
-                        <img src="/assets/ivory-pen.png" alt="">
+
+                <a href="#" onclick="openPanel('section4')">
+                    <div class="img-box fade-up" data-name="Ivory">
+                        <img src="/assets/ivory-pen.png">
                     </div>
                 </a>
             </div>
+
         </div>
     </div>
+
+    <div id="section1" class="panel ">
+        <div class="panel-header">
+            <div>
+
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="closePanels()">X</button>
+            </div>
+        </div>
+
+        <div class="panel-content d-flex flex-column align-items-center"
+            style="background: url('/assets/authority-slidebg.jpg') center/cover no-repeat;">
+
+            <div class="overlay-wrapper">
+                <div class="plus-btn" onclick="openPanel('section1-view')">View</div>
+                <div class="float-box">
+                    <img src="/assets/authority-pen.png" class="image-overlay">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="section2" class="panel ">
+        <div class="panel-header">
+            <div>
+
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="closePanels()">X</button>
+            </div>
+        </div>
+
+        <div class="panel-content d-flex flex-column align-items-center"
+            style="background: url('/assets/romantic-slide-bg.jpg') center/cover no-repeat;">
+
+            <div class="overlay-wrapper">
+                <div class="plus-btn" onclick="openPanel('section2-view')">View</div>
+                <div class="float-box">
+                    <img src="/assets/romantic-pen.png" class="image-overlay">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="section3" class="panel ">
+        <div class="panel-header">
+            <div>
+
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="closePanels()">X</button>
+            </div>
+        </div>
+
+        <div class="panel-content d-flex flex-column align-items-center"
+            style="background: url('/assets/thinker-slidebg.jpg') center/cover no-repeat;">
+
+            <div class="overlay-wrapper">
+                <div class="plus-btn" onclick="openPanel('section3-view')">View</div>
+                <div class="float-box">
+                    <img src="/assets/thinker-pen.png" class="image-overlay">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="section4" class="panel ">
+        <div class="panel-header">
+            <div>
+
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="closePanels()">X</button>
+            </div>
+        </div>
+
+        <div class="panel-content d-flex flex-column align-items-center"
+            style="background: url('/assets/confidant-slidebg.jpg') center/cover no-repeat;">
+
+            <div class="overlay-wrapper">
+                <div class="plus-btn" onclick="openPanel('section4-view')">View</div>
+                <div class="float-box">
+                    <img src="/assets/confidant-pen.png" class="image-overlay">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="section1-view" class="panel-view">
+
+        <div class="panel-header">
+            <div></div>
+            <button class="btn btn-primary" onclick="closeviewPanels()">X</button>
+        </div>
+
+        <div class="vertical-slider">
+            <div class="slide">
+                <img src="/assets/pen3-img2-1.jpg" alt="">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen3-img3-1.jpg" class="full-img">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen3-img4.jpg" class="full-img">
+            </div>
+        </div>
+    </div>
+    <div id="section2-view" class="panel-view">
+
+        <div class="panel-header">
+            <div></div>
+            <button class="btn btn-primary" onclick="closeviewPanels()">X</button>
+        </div>
+
+        <div class="vertical-slider">
+            <div class="slide">
+                <img src="/assets/pen2-img2-1.jpg" alt="">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen2-img3-1.jpg" class="full-img">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen2-img4.jpg" class="full-img">
+            </div>
+        </div>
+    </div>
+    <div id="section3-view" class="panel-view">
+
+        <div class="panel-header">
+            <div></div>
+            <button class="btn btn-primary" onclick="closeviewPanels()">X</button>
+        </div>
+
+        <div class="vertical-slider">
+            <div class="slide">
+                <img src="/assets/pen4-img2.jpg" alt="">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen4-img3.jpg" class="full-img">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen4-img4.jpg" class="full-img">
+            </div>
+        </div>
+    </div>
+    <div id="section4-view" class="panel-view">
+
+        <div class="panel-header">
+            <div></div>
+            <button class="btn btn-primary" onclick="closeviewPanels()">X</button>
+        </div>
+
+        <div class="vertical-slider">
+            <div class="slide">
+                <img src="/assets/pen-closeup.jpg" alt="">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/pen-closeup2.jpg" class="full-img">
+                <p class="slide-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur impedit
+                    quidem repellat eum,
+                    labore culpa deserunt aperiam quisquam accusantium, illo consequuntur excepturi tempora iure
+                    perferendis possimus reprehenderit reiciendis? Repellendus, voluptatibus.</p>
+            </div>
+            <div class="slide">
+                <img src="/assets/slide4-pen.jpg" class="full-img">
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
     <script>
         window.addEventListener("load", () => {
-            document.querySelector(".intro_header").classList.add("show");
-            document.querySelector(".intro_body").classList.add("show");
-            document.querySelector(".intro_main").classList.add("show");
-
+            document.querySelectorAll(".fade-up, .fade-down, .zoom-in").forEach((el, i) => {
+                setTimeout(() => el.classList.add("active"), i * 200);
+            });
         });
+        function openPanel(id) {
+            document.querySelectorAll(".panel").forEach(panel => {
+                panel.classList.remove("active");
+            });
+
+            document.getElementById(id).classList.add("active");
+        }
+
+        function closePanels() {
+            document.querySelectorAll(".panel").forEach(panel => {
+                panel.classList.remove("active");
+            });
+        }
+
+        function closeviewPanels() {
+            document.querySelectorAll(".panel-view").forEach(panel => {
+                panel.classList.remove("active");
+            });
+        }
     </script>
 </body>
-
 
 </html>
